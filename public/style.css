@@ -1,3 +1,52 @@
-div {
-    border : 1px solid red;
+* {
+  margin : 0px;
+  padding : 0px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+nav {
+  text-align: center;
+}
+
+.back {
+  display: -webkit-box;
+}
+
+.groupList{
+  background-color: lightpink;
+  border-radius: 10px;
+  padding-top: 10px;
+}
+.reminderListBox {
+  background-color: blanchedalmond;
+  border-radius: 10px;
+  padding : 10px 10px 10px 10px;
+}
+
+.groupList, .reminderListBox  {
+  text-align: center;
+}
+
+.groupEntry {
+  margin-bottom: 10px;
+  background-color: antiquewhite;
+  border-radius : 5px;
+}
+
+.groupListBox {
+  background-color: whitesmoke;
+  border-radius: 5px;
+  margin-bottom : 10px;
+  padding: 10px 10px 10px 10px; 
+}
+
+.selectEntry {
+  background-color: snow;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
