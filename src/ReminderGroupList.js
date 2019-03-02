@@ -27,7 +27,7 @@ const ReminderGroupList = (props) => {
     );
   } else {
     return (
-    <div>
+    <div className='groupEntry'>
       일정을 추가해주세요!
       <button type="button" className="btn btn-warning btn-xs" onClick={buttonClickHandler}>+</button>
     </div>
