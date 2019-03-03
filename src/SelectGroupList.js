@@ -12,7 +12,7 @@ const SelectGroupList = (props) => {
       <div>
         {
           props.targetList.map((ele,i)=> {
-          return <SelectGroupEntry key={i} className='selectEntry' selectGroup={ele} target={props.target} listNameClick={props.listNameClick}/>})
+          return <SelectGroupEntry key={i} id= {i} className='selectEntry' selectGroup={ele} target={props.target} listNameClick={props.listNameClick}/>})
         }
         <button type="button" className="btn btn-warning btn-xs" onClick={buttonClickHandler} >+</button>
       </div>

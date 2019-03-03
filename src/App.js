@@ -11,9 +11,9 @@ class App extends Component {
       target: null,
       reminderList:
         [{
-          오늘할일: [{ title: '쓰레기치우기', value: '현관앞 쓰레기 치우기', date: '', toggle: false },
-                    { title: '쓰레기치우기', value: '현관앞 쓰레기 치우기', date: '', toggle: false }],
-          내일할일: [{ title: '공부하기', value: 'react공부하기', date: '', toggle: false }],
+          오늘할일: [{ index: 0, title: '쓰레기치우기', value: '현관앞 쓰레기 치우기', date: '', toggle: false },
+          { index: 1, title: '쓰레기치우기', value: '현관앞 쓰레기 치우기', date: '', toggle: false }],
+          내일할일: [{ index: 0, title: '공부하기', value: 'react공부하기', date: '', toggle: false }],
         }],
       targetList: null,
       search: null
@@ -64,7 +64,7 @@ class App extends Component {
         });
     } else {
 
-      let templet = { title: '', value: '', date: '', toggle : false};
+      let templet = { index: 0, title: '', value: '', date: '', toggle: false };
 
       swal({
         text: "해야 할일이 무엇인가요 ??",
@@ -95,7 +95,9 @@ class App extends Component {
           templet.value = value;
 
         }).then(() => {
-        this.selectGroupListAdd(templet)
+          let index = this.state.reminderList[0][this.state.target].length;
+          templet.index = index;
+          this.selectGroupListAdd(templet);
         })
 
       })
@@ -106,25 +108,43 @@ class App extends Component {
   //selectgroupList
 
   //리스트 클릭했을때 줄가게
-  listNameClick = (e) => {
-    if (e.target.style.textDecoration) {
-      e.target.style.textDecoration = '';
-    } else {
-      e.target.style.textDecoration = 'line-through';
+  listNameClick = (e, index) => {
+    let toggle = this.state.reminderList[0][this.state.target][index].toggle;
 
+    if (!toggle) {
+      this.toggleChange(index, true);
+    } else {
+      this.toggleChange(index, false);
     }
+
+    if(toggle) {
+      e.target.style.textDecoration = 'line-through';
+      e.preventdefault();
+    } else {
+      e.target.style.textDecoration = '';
+      e.preventdefault();
+    }
+
+    // if (e.target.style.textDecoration) {
+    //   e.target.style.textDecoration = '';
+    // } else {
+    //   e.target.style.textDecoration = 'line-through';
+
+    // }
   }
   //완성된 템플릿 저장
   selectGroupListAdd = (templet) => {
     let list = Object.create(this.state.reminderList);
     list[0][this.state.target].push(templet);
-    
-    this.setState({reminderList : list});
-    
+
+    this.setState({ reminderList: list });
   }
 
-  toggleChange = () => {
-    
+  toggleChange = (index, boolean) => {
+    let newList = Object.create(this.state.reminderList);
+    newList[0][this.state.target][index].toggle = boolean;
+
+    this.setState({ reminderList: newList })
   }
   //-------------------------------------------------------------------------
   //Nav
@@ -166,7 +186,11 @@ class App extends Component {
             </ReminderGroupList>
           </div>
           <div className='col-xs-12 col-md-8 reminderListBox'>
-            <SelectGroupList targetList={this.state.targetList} target={this.state.target} listNameClick={this.listNameClick} buttonClickHandler={this.buttonClickHandler} />
+            <SelectGroupList targetList={this.state.targetList}
+                              target={this.state.target}
+                              listNameClick={this.listNameClick}
+                              buttonClickHandler={this.buttonClickHandler}
+                              />
           </div>
         </div>
       </div>
